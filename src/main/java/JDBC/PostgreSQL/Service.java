@@ -31,7 +31,7 @@ public class Service {
 			insert1.close();
 
 		} catch (SQLException e) {
-			logger.error("an exception has been thrown" + e);
+			logger.info("",e);
 		}
 
 	}
@@ -53,7 +53,7 @@ public class Service {
 			insert2.close();
 
 		} catch (SQLException e) {
-			logger.error("an exception has been thrown" + e);
+			logger.info("",e);
 		}
 
 	}
@@ -67,7 +67,7 @@ public class Service {
 			insert3.executeUpdate();
 
 		} catch (SQLException e) {
-			logger.error("an exception has been thrown" + e);
+			logger.info("",e);
 		}
 
 	}
@@ -89,7 +89,7 @@ public class Service {
 			insert4.close();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.info("",e);
 		}
 	}
 
@@ -102,12 +102,12 @@ public class Service {
 			ResultSet resultSet = insert5.executeQuery();
 			logger.info(c.getFirstname());
 			while (resultSet.next()) {
-				System.out.println(resultSet.getString("firstname") + " " + resultSet.getString("lastname"));
+				logger.info(resultSet.getString("firstname") + " " + resultSet.getString("lastname"));
 
 			}
 			insert5.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.info("",e);
 		}
 	}
 }

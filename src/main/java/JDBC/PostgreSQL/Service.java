@@ -18,7 +18,7 @@ public class Service {
 
 	public static void addBook(Connection conn, Book bk) throws SQLException {
 
-		PreparedStatement insert1;
+		PreparedStatement insert1 = null;
 		try {
 			insert1 = conn.prepareStatement("INSERT INTO book(title, author) VALUES(?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
@@ -32,12 +32,14 @@ public class Service {
 
 		} catch (SQLException e) {
 			logger.info("",e);
+		}finally {
+			insert1.close();
 		}
 
 	}
 
 	public static void addClient(Connection conn, Client c) throws SQLException {
-		PreparedStatement insert2;
+		PreparedStatement insert2 = null;
 		try {
 			insert2 = conn.prepareStatement(
 					"INSERT INTO client(lastname, firstname, gender, id_book) VALUES (?, ?, ?, ?)",
@@ -50,16 +52,17 @@ public class Service {
 			ResultSet generatedKeys = insert2.getGeneratedKeys();
 			generatedKeys.next();
 			c.setId(generatedKeys.getInt("id"));
-			insert2.close();
-
+			
 		} catch (SQLException e) {
 			logger.info("",e);
+		}finally {
+			insert2.close();
 		}
 
 	}
 
-	public static void addAchat(Connection conn, Client c, Book bk) {
-		PreparedStatement insert3;
+	public static void addAchat(Connection conn, Client c, Book bk) throws SQLException {
+		PreparedStatement insert3 = null;
 		try {
 			insert3 = conn.prepareStatement("INSERT INTO achat(id_client, id_book) VALUES (?, ?)");
 			insert3.setInt(1, c.getId());
@@ -68,12 +71,14 @@ public class Service {
 
 		} catch (SQLException e) {
 			logger.info("",e);
+		}finally {
+			insert3.close();
 		}
 
 	}
 
-	public static void achatClients(Connection conn, Client c) {
-		PreparedStatement insert4;
+	public static void achatClients(Connection conn, Client c) throws SQLException {
+		PreparedStatement insert4 = null;
 
 		try {
 			insert4 = conn.prepareStatement(
@@ -86,15 +91,15 @@ public class Service {
 
 			}
 
-			insert4.close();
-
 		} catch (SQLException e) {
 			logger.info("",e);
+		}finally {
+			insert4.close();
 		}
 	}
 
-	public static void acheteur(Connection conn, Client c) {
-		PreparedStatement insert5;
+	public static void acheteur(Connection conn, Client c) throws SQLException {
+		PreparedStatement insert5 = null;
 
 		try {
 			insert5 = conn.prepareStatement(
@@ -108,6 +113,8 @@ public class Service {
 			insert5.close();
 		} catch (SQLException e) {
 			logger.info("",e);
+		}finally {
+			insert5.close();
 		}
 	}
 }

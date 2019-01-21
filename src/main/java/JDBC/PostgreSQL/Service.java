@@ -1,14 +1,20 @@
-package JDBC.PostgreSQL;
+package jdbc.postgresql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Service {
+	private Service() {
+
+	}
+
+	private static final Logger logger = LoggerFactory.getLogger(Service.class);
 
 	public static void addBook(Connection conn, Book bk) throws SQLException {
 
@@ -25,8 +31,7 @@ public class Service {
 			insert1.close();
 
 		} catch (SQLException e) {
-
-			e.printStackTrace();
+			logger.error("an exception has been thrown" + e);
 		}
 
 	}
@@ -40,7 +45,7 @@ public class Service {
 			insert2.setString(1, c.getLastname());
 			insert2.setString(2, c.getFirstname());
 			insert2.setString(3, c.getGender());
-			insert2.setInt(4, c.getId_livrepref());
+			insert2.setInt(4, c.getidLivrePref());
 			insert2.executeUpdate();
 			ResultSet generatedKeys = insert2.getGeneratedKeys();
 			generatedKeys.next();
@@ -48,7 +53,7 @@ public class Service {
 			insert2.close();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("an exception has been thrown" + e);
 		}
 
 	}
@@ -62,7 +67,7 @@ public class Service {
 			insert3.executeUpdate();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("an exception has been thrown" + e);
 		}
 
 	}
@@ -75,9 +80,9 @@ public class Service {
 					"Select title, author from book join achat on book.id = achat.id_book join client on achat.id_client = client.id where client.id ="
 							+ c.getId());
 			ResultSet resultSet = insert4.executeQuery();
-			System.out.println(c.getFirstname());
+			logger.info(c.getFirstname());
 			while (resultSet.next()) {
-				System.out.println(resultSet.getString("title") + " " + resultSet.getString("author"));
+			logger.info(resultSet.getString("title") + " " + resultSet.getString("author"));
 
 			}
 
@@ -95,7 +100,7 @@ public class Service {
 			insert5 = conn.prepareStatement(
 					"Select distinct firstname, lastname from client join achat on client.id = achat.id_book");
 			ResultSet resultSet = insert5.executeQuery();
-			System.out.println(c.getFirstname());
+			logger.info(c.getFirstname());
 			while (resultSet.next()) {
 				System.out.println(resultSet.getString("firstname") + " " + resultSet.getString("lastname"));
 

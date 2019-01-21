@@ -1,35 +1,38 @@
-package JDBC.PostgreSQL;
+package jdbc.postgresql;
 
 public class Book {
 	private Integer id;
-	private String Title;
-	private String Author;
-	
-	
+	private String title;
+	private String author;
 
 	public Book(String title, String author) {
 		super();
-		Title = title;
-		Author = author;
+		this.title = title;
+		this.author = author;
 	}
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getTitle() {
-		return Title;
+		return title;
 	}
+
 	public void setTitle(String title) {
-		Title = title;
+		this.title = title;
 	}
+
 	public String getAuthor() {
-		return Author;
+		return author;
 	}
+
 	public void setAuthor(String author) {
-		Author = author;
+		this.author = author;
 	}
-	
-	
+
 }
